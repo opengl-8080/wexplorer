@@ -6,6 +6,31 @@
         <link rel="stylesheet" href="wexplorer.css" />
     </head>
     <body>
-        <img th:src="@{/raw-image(filePath=${filePath})}" />
+        <div id="viewerControl" class="viewer-control viewer-control--invisible">
+            <a class="viewer-control__parent-directory"
+               th:href="@{/explorer(directory=${currentDirectoryPath})}">
+                back
+            </a>
+            
+            <a class="viewer-control__previous-image"
+               th:if="${nextPreviousImagePaths.previousImagePath != null}"
+               th:href="@{/image(filePath=${nextPreviousImagePaths.previousImagePath})}">
+                previous image
+            </a>
+            <a class="viewer-control__next-image"
+               th:if="${nextPreviousImagePaths.nextImagePath != null}"
+               th:href="@{/image(filePath=${nextPreviousImagePaths.nextImagePath})}">
+                next image
+            </a>
+        </div>
+        
+        <div id="viewer" class="viewer">
+            <img id="image"
+                 th:src="@{/raw-image(filePath=${filePath})}"
+                 class="viewer__image" />
+        </div>
+        
+        <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+        <script th:src="@{/js/image.js}"></script>
     </body>
 </html>

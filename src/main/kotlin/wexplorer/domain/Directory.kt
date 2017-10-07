@@ -25,6 +25,8 @@ class Directory (
         return this.list { Files.isDirectory(it) }
     }
     
+    fun getPathString() = this.path.toString().replace("\\", "/")
+    
     private fun list(filter: (Path) -> Boolean): List<FileItem> {
         return Files.list(this.path)
                 .filter(filter)
@@ -33,7 +35,26 @@ class Directory (
                     val path = it.toString().replace("\\", "/")
                     FileItem(name, path)
                 }
+                .sorted()
                 .peek { logger.debug("list() peek it={}", it) }
                 .collect(Collectors.toList())
+    }
+
+    fun getNextPreviousImagePaths(filePath: String): NextPreviousImagePaths {
+        val fileItems = this.files()
+        val index = fileItems.indexOfFirst { it.path == filePath }
+        
+        val previousImagePath: String? = if (0 <= index - 1) {
+            fileItems[index - 1].path
+        } else {
+            null
+        }
+        val nextImagePath: String? = if (index + 1 < fileItems.size) {
+            fileItems[index + 1].path
+        } else {
+            null
+        }
+        
+        return NextPreviousImagePaths(previousImagePath, nextImagePath)
     }
 }
