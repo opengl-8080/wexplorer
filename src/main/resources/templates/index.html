@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Index</title>
+        <link rel="stylesheet" href="wexplorer.css" />
+    </head>
+    <body>
+        <ul class="top-page">
+            <li><a th:href="@{/explorer(directory=${imagesDirectoryPath})}" class="top-page__link">images</a></li>
+            <li><a th:href="@{/explorer(directory=${moviesDirectoryPath})}" class="top-page__link">movies</a></li>
+        </ul>
+    </body>
+</html>

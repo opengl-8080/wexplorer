@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Explorer</title>
+        <link rel="stylesheet" href="wexplorer.css" />
+    </head>
+    <body>
+        <ul class="directories" th:if="${!currentDirectory.isEnd()}">
+            <li th:each="directory : ${currentDirectory.directories()}">
+                <a th:href="@{/explorer(directory=${directory.path})}" class="directories__link">
+                    [[${directory.name}]]
+                </a>
+            </li>
+        </ul>
+    
+        <ul class="files" th:if="${currentDirectory.isEnd()}">
+            <li th:each="file : ${currentDirectory.files()}">
+                <a th:href="@{/image(filePath=${file.path})}" class="files__link">
+                    <img th:src="@{/thumbnail(filePath=${file.path})}" />
+                </a>
+            </li>
+        </ul>
+    </body>
+</html>

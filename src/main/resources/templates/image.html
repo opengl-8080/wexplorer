@@ -1,0 +1,11 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Image</title>
+        <link rel="stylesheet" href="wexplorer.css" />
+    </head>
+    <body>
+        <img th:src="@{/raw-image(filePath=${filePath})}" />
+    </body>
+</html>
